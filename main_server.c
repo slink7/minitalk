@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/13 15:37:49 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/16 02:05:18 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,33 @@
 
 #include "libft.h"
 
+#define MAX_SIG_BUFFER 128
+
+typedef struct s_rstack
+{
+	int	content[MAX_SIG_BUFFER];
+	int	read_index;
+	int	write_index;
+}	t_rstack;
+
+void	rstack_write(t_rstack *rs, int k)
+{
+	rs->content[rs->write_index++ % MAX_SIG_BUFFER] = k;
+}
+
+int rstack_read(t_rstack *rs)
+{
+	return rs->content[rs->read_index++ % MAX_SIG_BUFFER];
+}
+
 int	right_bitshift_wrap(unsigned char v)
 {
 	return ((v >> 1) | (v << 7));
 }
 
-void	f(int signum)
+t_rstack rs;
+
+void	interprete(int signum)
 {
 	static unsigned char	byte = 0;
 	static int				count = 0;
@@ -45,18 +66,37 @@ void	f(int signum)
 	count = 0;
 }
 
+void	init_rs(t_rstack rs)
+{
+	int	k;
+
+	k = 0;
+	while (k > MAX_SIG_BUFFER)
+		rs.content[k] = 0;
+	rs.read_index = 0;
+	rs.write_index = 0;
+}
+
+void	sig_handler(int signum)
+{
+    rstack_write(&rs, signum);
+}
+
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
 	int					pid;
 
-	sa.sa_handler = &f;
+	init_rs(rs);
+	sa.sa_handler = &sig_handler;
+	sa.sa_flags = SA_RESTART;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	pid = getpid();
 	printf("pid : %d\n", pid);
 	while (1)
-		usleep(0);
+		if (rs.read_index < rs.write_index)
+			interprete(rstack_read(&rs));
 }
 /*
 void	handle(int sig)
