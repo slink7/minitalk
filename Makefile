@@ -1,9 +1,11 @@
 
 CLIENT_SRC =\
-	main_client.c
+	main_client.c\
+	send.c
 
 SERVER_SRC =\
-	main_server.c
+	main_server.c\
+	t_rstack.c
 
 OBJ_DIR = obj
 CLIENT_OBJ = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(notdir $(basename $(CLIENT_SRC)))))

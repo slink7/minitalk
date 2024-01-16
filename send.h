@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_client.c                                      :+:      :+:    :+:   */
+/*   send.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/16 18:51:32 by scambier         ###   ########.fr       */
+/*   Created: 2024/01/16 18:40:54 by scambier          #+#    #+#             */
+/*   Updated: 2024/01/16 18:43:17 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef SEND_H
+# define SEND_H
 
-#include "libft.h"
-#include "send.h"
+#define SEND_COOLDOWN 5
 
-int	main(int argc, char **argv)
-{
-	int	pid;
+int	    send_signum(int pid, int signum);
+int	    send_bit(int pid, int bit);
+void	send_char(int pid, unsigned char c);
+void	send_str(int pid, char *str);
 
-	if (argc != 3)
-		return (0);
-	pid = ft_atoi(argv[1]);
-	send_str(pid, argv[2]);
-}
+#endif

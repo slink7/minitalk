@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_client.c                                      :+:      :+:    :+:   */
+/*   t_rstack.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/16 18:51:32 by scambier         ###   ########.fr       */
+/*   Created: 2024/01/16 18:49:18 by scambier          #+#    #+#             */
+/*   Updated: 2024/01/16 18:57:43 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "t_rstack.h"
 
-#include "libft.h"
-#include "send.h"
-
-int	main(int argc, char **argv)
+void	init_rs(t_rstack *rs)
 {
-	int	pid;
+	int	k;
 
-	if (argc != 3)
-		return (0);
-	pid = ft_atoi(argv[1]);
-	send_str(pid, argv[2]);
+	k = 0;
+	while (k > RSTACK_BUFFER_LEN)
+		rs->content[k] = 0;
+	rs->read_index = 0;
+	rs->write_index = 0;
+}
+
+void	rstack_write(t_rstack *rs, int k)
+{
+	rs->content[rs->write_index++ % RSTACK_BUFFER_LEN] = k;
+}
+
+int	rstack_read(t_rstack *rs)
+{
+	return (rs->content[rs->read_index++ % RSTACK_BUFFER_LEN]);
 }
