@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/12 14:36:00 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/16 02:38:20 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,22 @@
 
 #include "libft.h"
 
+#define SEND_COOLDOWN 5
+
 int	send_signum(int pid, int signum)
 {
 	int	out;
 
+	usleep(SEND_COOLDOWN);
 	out = kill(pid, signum);
-	usleep(1000);
 	return (out);
 }
 
-void	send_char(int pid, char c)
+void	send_char(int pid, unsigned char c)
 {
 	int	k;
 
 	k = -1;
-	printf("%c", c);
 	while (++k < 8)
 	{
 		send_signum(pid, 2 * (c % 2) + 10);
@@ -43,7 +44,7 @@ void	send_char(int pid, char c)
 void	send_str(int pid, char *str)
 {
 	while (*str)
-		send_char(pid, *str++);
+		send_char(pid, (unsigned char)*str++);
 	send_char(pid, 0);
 }
 
