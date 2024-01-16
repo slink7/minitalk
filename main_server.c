@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/16 02:05:18 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/16 03:51:18 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	rstack_write(t_rstack *rs, int k)
 	rs->content[rs->write_index++ % MAX_SIG_BUFFER] = k;
 }
 
-int rstack_read(t_rstack *rs)
+int	rstack_read(t_rstack *rs)
 {
-	return rs->content[rs->read_index++ % MAX_SIG_BUFFER];
+	return (rs->content[rs->read_index++ % MAX_SIG_BUFFER]);
 }
 
 int	right_bitshift_wrap(unsigned char v)
@@ -43,7 +43,7 @@ int	right_bitshift_wrap(unsigned char v)
 	return ((v >> 1) | (v << 7));
 }
 
-t_rstack rs;
+t_rstack	g_rs;
 
 void	interprete(int signum)
 {
@@ -61,7 +61,7 @@ void	interprete(int signum)
 	if (byte == 0)
 		write(1, "\n", 1);
 	else
-	write(1, &byte, 1);
+		write(1, &byte, 1);
 	byte = 0;
 	count = 0;
 }
@@ -79,9 +79,11 @@ void	init_rs(t_rstack rs)
 
 void	sig_handler(int signum)
 {
-    rstack_write(&rs, signum);
+	rstack_write(&g_rs, signum);
 }
 
+//600us/char
+//1666char/sec
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
