@@ -6,14 +6,14 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:45:15 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/16 18:51:11 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/17 23:34:09 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef T_RSTACK_H
 # define T_RSTACK_H
 
-#define RSTACK_BUFFER_LEN 128
+#define RSTACK_BUFFER_LEN 8 * 4096
 
 typedef struct s_rstack
 {
