@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/16 20:04:07 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:01:11 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 #include <unistd.h>
 #include <signal.h>
 #include <bits/sigaction.h>
+//#include <asm-generic/signal.h>
+//#include <asm/signal.h>
 
 #include <stdio.h>
 
 #include "libft.h"
 #include "t_rstack.h"
+#include "chrono.h"
 
 t_rstack	g_rs;
 
@@ -26,6 +29,8 @@ int	right_bitshift_wrap(unsigned char v)
 {
 	return ((v >> 1) | (v << 7));
 }
+
+int	g_flag = 1;
 
 void	print_interpret(int signum)
 {
@@ -40,7 +45,11 @@ void	print_interpret(int signum)
 	if (++count < 8)
 		return ;
 	if (byte == 0)
+	{
 		write(1, "\n", 1);
+		printf("%ldms\n", get_time_since_last_call());
+		g_flag = 1;
+	}
 	else
 		write(1, &byte, 1);
 	byte = 0;
@@ -54,11 +63,14 @@ void	sig_handler(int signum)
 
 //600us/char
 //1666char/sec
+
+//20ms/char
+//500char/sec
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
-	int					pid;
 	unsigned char		out;
+	int					pid;
 
 	init_rs(&g_rs);
 	sa.sa_handler = &sig_handler;
@@ -72,5 +84,11 @@ int	main(int argc, char **argv)
 	printf("pid : %d\n", pid);
 	while (1)
 		if (g_rs.read_index < g_rs.write_index)
+		{
+			if (g_flag) {
+				get_time_since_last_call();
+				g_flag = 0;
+			}
 			print_interpret(rstack_read(&g_rs));
+		}
 }

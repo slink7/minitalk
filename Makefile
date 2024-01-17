@@ -1,10 +1,12 @@
 
 CLIENT_SRC =\
 	main_client.c\
+	chrono.c\
 	send.c
 
 SERVER_SRC =\
 	main_server.c\
+	chrono.c\
 	t_rstack.c
 
 OBJ_DIR = obj
@@ -24,6 +26,8 @@ clean :
 fclean : clean
 	rm $(CLIENT_NAME)
 	rm $(SERVER_NAME)
+
+re : fclean all
 
 $(CLIENT_NAME) : $(CLIENT_OBJ)
 	cc -o $(CLIENT_NAME) $(CLIENT_OBJ) -Llibft -lft
