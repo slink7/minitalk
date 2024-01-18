@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/18 18:53:02 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/18 19:21:57 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 
 void	action(int signum, siginfo_t *siginfo, void *prev)
 {
-	if (signum == SIGUSR1)
-		ft_putstr_fd("Confirmation received !", 1);
+	if (signum != SIGUSR1)
+		return ;
+	ft_putstr_fd("Confirmation received !", 1);
+	exit(0);
 }
 
 int	main(int argc, char **argv)
@@ -42,5 +44,5 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	send_str(pid, argv[2], 150);
 	ft_putnbr_fd(get_time_since_last_call(), 1);
-	pause();
+	sleep(10);
 }
