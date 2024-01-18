@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:23:36 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/18 00:07:22 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/18 00:53:01 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void send_bit(int pid, int bit)
 
 void	send_char(int pid, unsigned char c, int bit_cooldown)
 {
-	static struct timespec	ms = {0, 1000};
+	struct timespec	ms = {0, bit_cooldown};
 	int	k;
 
 	k = -1;
 	while (++k < 8)
 	{
 		send_bit(pid, (c % 2));
-		ft_nsleep(bit_cooldown);
+		usleep(bit_cooldown);
 		c = c >> 1;
 	}
 }
