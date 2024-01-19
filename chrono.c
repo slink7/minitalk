@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:25:01 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/17 23:56:09 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:15:33 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,22 @@ void	ft_nsleep(int ns)
 	struct timespec	now;
 
 	clock_gettime(CLOCK_REALTIME, &start);
-	while(1)
+	while (1)
 	{
 		clock_gettime(CLOCK_REALTIME, &now);
-		if ((now.tv_sec - start.tv_sec) * 1e9 + (now.tv_nsec - start.tv_nsec) > ns)
+		if ((now.tv_sec - start.tv_sec) * 1e9
+			+ (now.tv_nsec - start.tv_nsec) > ns)
 			return ;
 	}
 }
 
 long	get_time_diff(struct timespec a, struct timespec b, int in_a_sec)
 {
-	return ((a.tv_sec - b.tv_sec) * in_a_sec + (a.tv_nsec - b.tv_nsec) / (1e9 / in_a_sec));
+	return ((a.tv_sec - b.tv_sec) * in_a_sec
+		+ (a.tv_nsec - b.tv_nsec) / (1e9 / in_a_sec));
 }
 
-long	get_time_since_last_call()
+long	get_time_since_last_call(void)
 {
 	static struct timespec	last = {0, 0};
 	struct timespec			now;

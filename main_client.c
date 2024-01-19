@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/18 19:21:57 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:16:08 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 
 int	main(int argc, char **argv)
 {
-	int	pid;
+	int					pid;
 	struct sigaction	sa;
 
 	sa.sa_sigaction = &action;
@@ -37,7 +37,6 @@ int	main(int argc, char **argv)
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGUSR1);
 	sigaction(SIGUSR1, &sa, NULL);
-
 	if (argc < 3 || argc > 4)
 		return (0);
 	get_time_since_last_call();
