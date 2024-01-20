@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:23:36 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/18 00:53:01 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:59:13 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@
 #include "send.h"
 #include "chrono.h"
 
-void send_signum(int pid, int signum)
+void	send_signum(int pid, int signum)
 {
 	kill(pid, signum);
 }
 
-void send_bit(int pid, int bit)
+void	send_bit(int pid, int bit)
 {
 	send_signum(pid, 2 * bit + 10);
 }
 
 void	send_char(int pid, unsigned char c, int bit_cooldown)
 {
-	struct timespec	ms = {0, bit_cooldown};
 	int	k;
 
 	k = -1;
 	while (++k < 8)
 	{
 		send_bit(pid, (c % 2));
-		usleep(bit_cooldown);
+		if (bit_cooldown > 0)
+			usleep(bit_cooldown);
 		c = c >> 1;
 	}
 }

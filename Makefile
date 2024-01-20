@@ -13,27 +13,30 @@ OBJ_DIR = obj
 CLIENT_OBJ = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(notdir $(basename $(CLIENT_SRC)))))
 SERVER_OBJ = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(notdir $(basename $(SERVER_SRC)))))
 
-CLIENT_NAME = client
-SERVER_NAME = server
+NAME =
+CLIENT = client
+SERVER = server
 
 CFLAGS = -Werror
 
-all : $(OBJ_DIR) $(CLIENT_NAME) $(SERVER_NAME)
+bonus : all
+
+all : $(OBJ_DIR) $(CLIENT) $(SERVER)
 
 clean :
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR) || true
 
 fclean : clean
-	rm $(CLIENT_NAME)
-	rm $(SERVER_NAME)
+	rm $(SERVER) || true
+	rm $(CLIENT) || true
 
 re : fclean all
 
-$(CLIENT_NAME) : $(CLIENT_OBJ)
-	cc -o $(CLIENT_NAME) $(CLIENT_OBJ) -Llibft -lft
+$(CLIENT) : $(CLIENT_OBJ)
+	cc -o $(CLIENT) $(CLIENT_OBJ) -Llibft -lft
 
-$(SERVER_NAME) : $(SERVER_OBJ) 
-	cc -o $(SERVER_NAME) $(SERVER_OBJ) -Llibft -lft
+$(SERVER) : $(SERVER_OBJ) 
+	cc -o $(SERVER) $(SERVER_OBJ) -Llibft -lft
 
 $(OBJ_DIR) :
 	mkdir $(OBJ_DIR)
