@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/22 14:52:01 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:01:48 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 #include "libft.h"
 #include "t_rstack.h"
-#include "chrono.h"
 
 #define STDOUT 1
 
@@ -34,14 +33,8 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 {
 	static unsigned char	byte = 0;
 	static int				count = 0;
-	static int				flag = 1;
 	int						bit;
 
-	if (flag)
-	{
-		get_time_since_last_call();
-		flag = 0;
-	}
 	if (signum != 10 && signum != 12)
 		return ;
 	bit = (signum - 10) / 2;
@@ -52,11 +45,8 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 	if (byte == 0)
 	{
 		ft_putchar_fd('\n', STDOUT);
-		ft_putnbr_fd(get_time_since_last_call(), 1);
-		ft_putchar_fd('\n', STDOUT);
 		printf("Sending confirmation to %d\n", siginfo->si_pid);
 		kill(siginfo->si_pid, SIGUSR1);
-		flag = 1;
 	}
 	byte = 0;
 	count = 0;
@@ -83,7 +73,6 @@ int	main(int argc, char **argv)
 	sigaction(SIGUSR2, &sa, NULL);
 	pid = getpid();
 	printf("__PID:%d\n", pid);
-	get_time_since_last_call();
 	while (1)
 		pause();
 }

@@ -1,12 +1,10 @@
 
 CLIENT_SRC =\
 	main_client.c\
-	chrono.c\
 	send.c
 
 SERVER_SRC =\
 	main_server.c\
-	chrono.c\
 	t_rstack.c
 
 OBJ_DIR = obj

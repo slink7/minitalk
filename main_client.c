@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/19 23:14:23 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:00:26 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 #include "libft.h"
 #include "send.h"
-#include "chrono.h"
 
 void	action(int signum, siginfo_t *siginfo, void *prev)
 {
@@ -39,9 +38,7 @@ int	main(int argc, char **argv)
 	sigaction(SIGUSR1, &sa, NULL);
 	if (argc < 3 || argc > 4)
 		return (0);
-	get_time_since_last_call();
 	pid = ft_atoi(argv[1]);
 	send_str(pid, argv[2], 150);
-	ft_putnbr_fd(get_time_since_last_call(), 1);
 	sleep(10);
 }

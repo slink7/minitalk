@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:23:36 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/19 22:59:13 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:01:01 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <time.h>
 
 #include "send.h"
-#include "chrono.h"
 
 void	send_signum(int pid, int signum)
 {
