@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/22 15:01:48 by scambier         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:54:20 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@
 #include <stdio.h>
 
 #include "libft.h"
-#include "t_rstack.h"
 
 #define STDOUT 1
-
-t_rstack	g_rs;
 
 int	right_bitshift_wrap(unsigned char v)
 {
@@ -63,7 +60,6 @@ int	main(int argc, char **argv)
 	char				out[8192];
 	int					pid;
 
-	init_rs(&g_rs);
 	sa.sa_sigaction = &action;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
