@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/01/22 15:00:26 by scambier         ###   ########.fr       */
+/*   Updated: 2024/01/29 10:50:05 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char **argv)
 	if (argc < 3 || argc > 4)
 		return (0);
 	pid = ft_atoi(argv[1]);
-	send_str(pid, argv[2], 150);
+	send_str(pid, argv[2], 1000);
 	sleep(10);
 }
+
