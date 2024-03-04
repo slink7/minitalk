@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:48:35 by scambier          #+#    #+#             */
-/*   Updated: 2024/02/29 18:50:15 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:13:56 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ void	strbuilder_add(t_strbuilder *buffer, char c)
 		strbuilder_add(buffer->next, c);
 		return ;
 	}
-	printf("%d\n", buffer->index);
 	if (buffer->index >= STRBUILDER_SIZE)
 	{
-		printf("Add new\n");
 		buffer->next = strbuilder_new();
 		strbuilder_add(buffer->next, c);
 		return ;
@@ -79,7 +77,7 @@ char	*strbuilder_get_content(t_strbuilder *buffer)
 	out_k = 0;
 	while (index)
 	{
-		ft_strlcpy(out + out_k, index->content, index->index);
+		ft_strlcpy(out + out_k, index->content, index->index + 1);
 		out_k += index->index;
 		index = index->next;
 	}
