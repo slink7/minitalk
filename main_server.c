@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/02/29 18:42:28 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:16:40 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,16 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 	if (signum != 10 && signum != 12)
 		return ;
 	if (!builder)
-	{
-		printf("New\n");
 		builder = strbuilder_new();
-	}
 	bit = (signum - 10) / 2;
 	byte = right_bitshift_wrap(byte + bit);
 	if (kill(siginfo->si_pid, SIGUSR2))
 		printf("kill error\n");
 	if (++count < 8)
 		return ;
-	printf("Add\n");
 	strbuilder_add(builder, byte);
 	if (byte == 0)
 	{
-		printf("Get\n");
 		ft_putstr_fd(strbuilder_get_content(builder), STDOUT);
 		ft_putchar_fd('\n', STDOUT);
 		strbuilder_free(&builder);
