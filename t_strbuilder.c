@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:48:35 by scambier          #+#    #+#             */
-/*   Updated: 2024/03/04 18:13:56 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:32:09 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	strbuilder_len(t_strbuilder *buffer)
 	return (buffer->index + strbuilder_len(buffer->next));
 }
 
-char	*strbuilder_get_content(t_strbuilder *buffer)
+char	*strbuilder_build(t_strbuilder *buffer)
 {
 	t_strbuilder	*index;
 	int				len;

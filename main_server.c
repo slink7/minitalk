@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/03/04 18:16:40 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:34:21 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,24 @@ unsigned char	right_bitshift_wrap(unsigned char v)
 void	action(int signum, siginfo_t *siginfo, void *prev)
 {
 	static t_strbuilder		*builder = 0;
+	char					*temp;
 	static unsigned char	byte = 0;
 	static int				count = 0;
-	int						bit;
 
-	if (signum != 10 && signum != 12)
-		return ;
 	if (!builder)
 		builder = strbuilder_new();
-	bit = (signum - 10) / 2;
-	byte = right_bitshift_wrap(byte + bit);
+	byte = right_bitshift_wrap(byte + (signum - 10) / 2);
 	if (kill(siginfo->si_pid, SIGUSR2))
 		printf("kill error\n");
 	if (++count < 8)
 		return ;
 	strbuilder_add(builder, byte);
-	if (byte == 0)
+	if (!byte)
 	{
-		ft_putstr_fd(strbuilder_get_content(builder), STDOUT);
-		ft_putchar_fd('\n', STDOUT);
+		temp = strbuilder_build(builder);
+		ft_printf_fd(STDOUT, "%s\nConfirming to %d\n", temp, siginfo->si_pid);
+		free(temp);
 		strbuilder_free(&builder);
-		printf("Sending confirmation to %d\n", siginfo->si_pid);
 		kill(siginfo->si_pid, SIGUSR1);
 	}
 	byte = 0;
@@ -60,12 +57,10 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 
 int	main(int argc, char **argv)
 {
-	int	signnums[2];
+	static int	signnums[2] = {SIGUSR1, SIGUSR2};
 
-	signnums[0] = SIGUSR1;
-	signnums[1] = SIGUSR2;
 	set_sig(2, signnums, action);
-	printf("SERVER:\n\tPID:%d\n", getpid());
+	printf("Starting server with PID:[%d]\n", getpid());
 	while (1)
 		pause();
 }

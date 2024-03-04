@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/02/29 17:37:23 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:35:28 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "libft.h"
 #include "set_sig.h"
 
-int g_can_send = 1;
+int	g_can_send = 1;
 
 void	send_char(int pid, unsigned char c)
 {
@@ -59,17 +59,12 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 
 int	main(int argc, char **argv)
 {
-	int	signnums[2];
-	int	pid;
+	static int	signnums[2] = {SIGUSR1, SIGUSR2};
 
 	if (argc < 3 || argc > 4)
 		return (0);
-	signnums[0] = SIGUSR1;
-	signnums[1] = SIGUSR2;
 	set_sig(2, signnums, action);
-	pid = ft_atoi(argv[1]);
-	send_str(pid, argv[2]);
+	send_str(ft_atoi(argv[1]), argv[2]);
 	sleep(1);
 	ft_putstr_fd("Confirmation not received ! >:(\n", 1);
 }
-
