@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/03/04 20:34:21 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:14:53 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 	static unsigned char	byte = 0;
 	static int				count = 0;
 
+	(void)prev;
 	if (!builder)
 		builder = strbuilder_new();
 	byte = right_bitshift_wrap(byte + (signum - 10) / 2);
@@ -55,7 +56,7 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 	count = 0;
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	static int	signnums[2] = {SIGUSR1, SIGUSR2};
 

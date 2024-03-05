@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/03/04 20:35:28 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:14:32 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	send_str(int pid, char *str)
 
 void	action(int signum, siginfo_t *siginfo, void *prev)
 {
+	(void)siginfo;
+	(void)prev;
 	if (signum == SIGUSR2)
 	{
 		g_can_send = 1;
