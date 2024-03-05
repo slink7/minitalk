@@ -6,14 +6,14 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:48:45 by scambier          #+#    #+#             */
-/*   Updated: 2024/03/04 20:33:56 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:05:08 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef T_STRBUILDER_H
 # define T_STRBUILDER_H
 
-# define STRBUILDER_SIZE 4
+# define STRBUILDER_SIZE 96
 
 typedef struct s_strbuilder	t_strbuilder;
 
