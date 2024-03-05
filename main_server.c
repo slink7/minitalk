@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/03/05 14:14:53 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:29:43 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 		builder = strbuilder_new();
 	byte = right_bitshift_wrap(byte + (signum - 10) / 2);
 	if (kill(siginfo->si_pid, SIGUSR2))
-		printf("kill error\n");
+		ft_printf_fd(1, "kill error\n");
 	if (++count < 8)
 		return ;
 	strbuilder_add(builder, byte);
@@ -61,7 +61,7 @@ int	main(void)
 	static int	signnums[2] = {SIGUSR1, SIGUSR2};
 
 	set_sig(2, signnums, action);
-	printf("Starting server with PID:[%d]\n", getpid());
+	ft_printf_fd(1, "Starting server with PID:[%d]\n", getpid());
 	while (1)
 		pause();
 }
