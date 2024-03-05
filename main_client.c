@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:32:04 by scambier          #+#    #+#             */
-/*   Updated: 2024/03/05 15:29:15 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:32:21 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include <bits/sigaction.h>
-
-#include <stdio.h>
 
 #include "libft.h"
 #include "set_sig.h"
