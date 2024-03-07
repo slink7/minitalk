@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/03/05 15:32:25 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:27:07 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 	if (!byte)
 	{
 		temp = strbuilder_build(builder);
-		ft_printf_fd(STDOUT, "%s\nConfirming to %d\n", temp, siginfo->si_pid);
+		ft_printf_fd(STDOUT, "%s\nReceived %d bytes\n", temp, ft_strlen(temp));
 		free(temp);
+		ft_printf_fd(STDOUT, "Confirming to %d\n", siginfo->si_pid);
 		strbuilder_free(&builder);
 		kill(siginfo->si_pid, SIGUSR1);
 	}
