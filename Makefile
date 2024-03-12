@@ -5,7 +5,6 @@ NAME_CLIENT = client
 
 SRC_SERVER =\
 	main_server.c\
-	t_strbuilder.c\
 	set_sig.c\
 
 SRC_CLIENT =\

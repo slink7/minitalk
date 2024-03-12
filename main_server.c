@@ -6,7 +6,7 @@
 /*   By: scambier <scambier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 16:31:27 by scambier          #+#    #+#             */
-/*   Updated: 2024/03/07 14:10:07 by scambier         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:11:08 by scambier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 #include "libft.h"
 #include "set_sig.h"
-#include "t_strbuilder.h"
 
 #define STDOUT 1
 
@@ -34,11 +33,11 @@ void	handle_reception(t_strbuilder **builder, int pid)
 {
 	char	*temp;
 
-	temp = strbuilder_build(*builder);
+	temp = ft_strbuilder_build(*builder);
 	ft_printf_fd(STDOUT, HEAD, ft_strlen(temp));
 	ft_printf_fd(STDOUT, MSG, temp);
 	ft_printf_fd(STDOUT, CONF, pid);
-	strbuilder_free(builder);
+	ft_strbuilder_free(builder);
 	kill(pid, SIGUSR1);
 	if (!ft_strncmp(temp, "exit", 5))
 	{
@@ -56,13 +55,13 @@ void	action(int signum, siginfo_t *siginfo, void *prev)
 
 	(void)prev;
 	if (!builder)
-		builder = strbuilder_new();
+		builder = ft_strbuilder_new();
 	byte = right_bitshift_wrap(byte + (signum - 10) / 2);
 	if (kill(siginfo->si_pid, SIGUSR2))
 		ft_printf_fd(1, "kill error\n");
 	if (++count < 8)
 		return ;
-	strbuilder_add(builder, byte);
+	ft_strbuilder_addchar(builder, byte);
 	if (!byte)
 		handle_reception(&builder, siginfo->si_pid);
 	byte = 0;
